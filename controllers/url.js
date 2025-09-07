@@ -12,7 +12,11 @@ async function handleGenerateNewSholrURL(req,res){
         visitHistory:[]
     });
 
-    res.status(201).json({id:shortID});
+
+    const allUrls= await URL.find({});
+    // console.log("alll urls", allUrls);
+    return res.render("home",{id:shortID,urlss:allUrls});
+    // res.status(201).json({id:shortID});
 }
 
 

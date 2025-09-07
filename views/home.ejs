@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2px;
+            padding: 2px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #090000;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+<body>
+  <h1>URL Shortener</h1>
+
+  <% if(locals.id){ %>
+     <h2>your genrated url: http://localhost:3000/<%= id %></h2>
+  <% } %>
+  <div>
+    <form action="/url" method="POST">
+        <label for="url">Enter URL to shorten:</label>
+        <input type="url" id="url" name="url" placeholder="http://example.com" required>
+        <button type="submit">Shorten</button>
+    </form>
+  </div>
+  <div>
+    <table>
+    <thead>
+        <tr>
+        <th>S.No</th>
+        <th>ShortID</th>
+        <th>Redirect</th>
+        <th>Clicks</th> 
+        </tr>
+    </thead>
+    <tbody>
+        <% urlss.forEach((url,index) => { %>
+           <tr>
+                <td><%= index + 1 %></td>
+                <td><%= url.shortId %></td>
+                <td><a href="http://localhost:3000/<%= url.shortId %>" target="_blank">http://localhost:3000/<%= url.shortId %></a></td>
+                <td><%= url.visitHistory.length %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+    </table>
+  </div>
+</body>
+</html>

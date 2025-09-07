@@ -2,11 +2,30 @@ const express = require("express");
 const app = express();
 const { connectMongoDB } = require("./connect");
 const urlRoutes = require("./routes/url");
+const staticRoutes = require("./routes/staticRoutes");
+const path = require("path");
+
+app.set("view engine", "ejs");
+app.set("views", path.resolve(__dirname, "views"));
+
 
 const URL = require("./models/url");
 
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/url", urlRoutes);
+
+app.use("/", staticRoutes);
+
+// app.get("/test", async(req,res)=>{
+
+//   const allUrls=await URL.find({});
+
+//   res.render("home", {urls:allUrls});
+// });
+
 
 app.get("/:shortId", async (req, res) => {
   const { shortId } = req.params;
